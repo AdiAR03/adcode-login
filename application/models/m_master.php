@@ -19,6 +19,6 @@ class m_master extends CI_model
 
 	public function getsubmenu()
 	{
-		return $this->db->from('user_sub_menu')->join('user_menu', 'user_menu.id_menu=user_sub_menu.menu_id')->where('user_sub_menu.is_active', 1)->order_by('user_menu.id_menu', 'ASC')->get()->result_array();
+		return $this->db->from('user_sub_menu')->join('user_menu', 'user_menu.id_menu=user_sub_menu.menu_id')->where('user_sub_menu.is_active', 1)->order_by('user_menu.id_menu', 'DESC')->order_by('user_sub_menu.id')->get()->result_array();
 	}
 }
