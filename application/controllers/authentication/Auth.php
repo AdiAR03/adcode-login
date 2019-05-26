@@ -54,7 +54,7 @@ class Auth extends CI_Controller
 									'role_id'	=> $user['role_id']
 						];
 						$this->session->set_userdata($data);
-						redirect('dashboard');
+						redirect('backend/dashboard');
 					}
 					else {
 						$this->session->set_flashdata('message', '
