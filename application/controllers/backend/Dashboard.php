@@ -6,7 +6,8 @@ class Dashboard extends MY_Controller
 	public function index()
 	{
 		$title			= 'Dashboard';
-		$this->header($title);
+		$sub_title		= '';
+		$this->header($title, $sub_title);
 
 		$this->load->view('backend/v_dashboard');
 

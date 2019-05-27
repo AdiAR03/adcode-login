@@ -1,3 +1,5 @@
+  </div>
+  <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
       <b>Helpdesk</b> 1.0
@@ -62,5 +64,8 @@
 <script src="<?= base_url('template/adminlte/dist/');?>js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('template/adminlte/dist/');?>js/demo.js"></script>
+
+<script src="<?= base_url('template/adminlte/bower_components/');?>datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('template/adminlte/bower_components/');?>datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 </body>
 </html>

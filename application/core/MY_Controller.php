@@ -8,9 +8,10 @@ class MY_Controller extends CI_Controller
 		$this->load->model('m_master');
 	}
 
-	public function header($title)
+	public function header($title, $sub_title)
 	{
 		$isi['title']		= $title;
+		$isi['sub_title']	= $sub_title;
 		$isi['users']		= $this->m_master->getusers();
 		$isi['application']	= $this->m_master->getapplication();	
 		$isi['menu']		= $this->m_master->getmenu();

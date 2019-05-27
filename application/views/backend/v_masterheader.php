@@ -56,7 +56,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?= base_url('backend/dashboard');?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b><?= $a['username_aplikasi'];?></span>
       <!-- logo for regular state and mobile devices -->
@@ -275,7 +275,7 @@
                         echo '<li>';
                       }
                     ;?>
-                      <a href="<?php cetak($sbm['url']) ;?>">
+                      <a href="<?php cetak(base_url($sbm['url'])) ;?>">
                         <i class="<?php cetak($sbm['icon']) ;?>"></i> <span><?php cetak($sbm['title']) ;?></span>
                       </a>
                     </li>
@@ -290,3 +290,17 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <?= $title ;?>
+        <small><?= $sub_title ;?></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="<?= base_url('backend/dashboard');?>"><i class="fa fa-home"></i> Home</a></li>
+        <li class="active"><?= $title ;?></li>
+      </ol>
+    </section>
