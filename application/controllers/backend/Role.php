@@ -3,9 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Role extends MY_Controller 
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
+		is_logged_in();
 		$this->load->model('backend/m_role');
 	}
 

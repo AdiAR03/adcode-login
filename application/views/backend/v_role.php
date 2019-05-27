@@ -19,6 +19,9 @@
       <div class="box">
         <div class="box-header">
           <h3 class="box-title" style="font-weight: bold;">Data Role</h3>
+          <div class="pull-right">
+            <button class="btn btn-sm btn-primary">Tambah</button>
+          </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
