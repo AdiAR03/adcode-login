@@ -55,4 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['authentication'] = 'authentication/auth';
 
-$route['authentication/logout'] = 'authentication/auth/logout';
+$route['authentication/logout'] 		= 'authentication/auth/logout';
+$route['authentication/admin/reset'] 	= 'authentication/auth/resetpass';
+$route['authentication/blocked'] 		= 'authentication/auth/blocked';

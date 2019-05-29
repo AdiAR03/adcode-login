@@ -67,5 +67,8 @@
 
 <script src="<?= base_url('template/adminlte/bower_components/');?>datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('template/adminlte/bower_components/');?>datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script src="<?= base_url('template/sweetalert');?>/sweetalert2.all.min.js"></script>
+<script src="<?= base_url('template/sweetalert');?>/myscript.js"></script>
 </body>
 </html>

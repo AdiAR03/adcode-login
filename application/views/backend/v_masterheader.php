@@ -229,63 +229,78 @@
         <li class="header">KABUPATEN LIMA PULUH KOTA</li>
 
         <?php
-          foreach ($menu as $mn) { ?>
-          <li class="header"><?= $mn['menu'];?></li>
-            <?php
-              foreach ($submenu as $sbm) 
+          foreach ($menu as $mn) 
+          {
+            if ($mn->url_menu!=NULL) 
+            {
+              if ($mn->judul_menu==$title) 
               {
-                if ($sbm['menu_id']==$mn['id_menu']) 
-                {
-                  if ($sbm['url']==NULL)
-                  { ?>
-                    <?php
-                      if ($sbm['title']==$title)
-                      {
-                        echo '<li class="active treeview">';
-                      }
-                      else
-                      {
-                        echo '<li class="treeview">';
-                      }
-                    ;?>
-                      <a href="#">
-                        <i class="<?= $sbm['icon'];?>"></i>
-                        <span><?= $sbm['title'];?></span>
-                        <span class="pull-right-container">
-                          <span class="label label-primary pull-right">1</span>
-                        </span>
-                      </a>
-                      <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> <?= $mn['menu'];?></a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-                      </ul>
-                    </li>
-                  <?php }
-                  else
-                  { ?>
-                    <?php
-                      if ($sbm['title']==$title)
-                      {
-                        echo '<li class="active">';
-                      }
-                      else
-                      {
-                        echo '<li>';
-                      }
-                    ;?>
-                      <a href="<?php cetak(base_url($sbm['url'])) ;?>">
-                        <i class="<?php cetak($sbm['icon']) ;?>"></i> <span><?php cetak($sbm['title']) ;?></span>
-                      </a>
-                    </li>
-                  <?php }
-                }
+                echo '<li class="active">';
               }
-            ;?>
-          <?php }
-        ;?>
-        
+              else
+              {
+                echo '<li>';
+              }
+              ?>
+                  <a href="<?php cetak(base_url($mn->url_menu)) ;?>">
+                    <i class="<?php cetak($mn->icon_menu) ;?>"></i> <span><?php cetak($mn->judul_menu) ;?></span>
+                  </a>
+                </li>
+            <?php }
+            else
+            {
+              if ($mn->judul_menu==$title) 
+              {
+                echo '<li class="active treeview">';
+              }
+              else
+              {
+                echo '<li class="treeview">';
+              }
+              ?>
+                <a href="#">
+                    <i class="<?= $mn->icon_menu;?>"></i>
+                    <span><?= $mn->judul_menu;?></span>
+                    <span class="pull-right-container">
+                      <span class="label label-primary pull-right">
+                        <?php
+                          $query = $this->db->from('user_sub_menu')->join('user_access_submenu', 'user_sub_menu.id_submenu=user_access_submenu.submenu_id')->where('user_access_submenu.role_id', $this->session->userdata['role_id'])->where('user_sub_menu.menu_id', $mn->id_menu)->get()->num_rows();
+
+                          echo $query; 
+                        ?>
+                          
+                        </span>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <?php
+                      foreach ($submenu->result() as $sbm) 
+                      {
+                        if($mn->id_menu==$sbm->menu_id) 
+                        { 
+                          if ($sbm->judul_submenu==$sub_title) 
+                          {
+                            echo '<li class="active">';
+                          }
+                          else
+                          {
+                            echo '<li>';
+                          }
+
+                          ?>
+                          
+                            <a href="<?php cetak(base_url($sbm->url_submenu));?>"><i class="fa fa-circle-o"></i> <?php cetak($sbm->judul_submenu);?></a>
+                          </li>
+                        <?php }  
+                      }
+                    ?>
+                   
+                  </ul>
+                </li>
+              <?php
+            }
+          }
+        ?>        
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -302,5 +317,9 @@
       <ol class="breadcrumb">
         <li><a href="<?= base_url('backend/dashboard');?>"><i class="fa fa-home"></i> Home</a></li>
         <li class="active"><?= $title ;?></li>
+        <?php if ($sub_title!=NULL): ?>
+          <li class="active"><?= $sub_title ;?></li>
+        <?php endif ?>
+        
       </ol>
     </section>
