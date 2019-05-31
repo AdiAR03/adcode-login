@@ -26,7 +26,8 @@
 <body class="hold-transition login-page">
 <div class="login-box">
 
-  <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('message');?>"></div>
+  <div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('error');?>"></div>
+  <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message');?>"></div>
 
   <div class="login-logo">
     <a href="<?= base_url('template/adminlte');?>/index2.html"><b>LOGIN SI</b>HELPDESK</a>

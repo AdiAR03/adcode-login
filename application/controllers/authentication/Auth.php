@@ -26,7 +26,7 @@ class Auth extends MY_Controller
 			}
 		}
 		else {
-			redirect('authentication');
+			redirect('backend/dashboard');
 		}	
 	}
 
@@ -58,21 +58,21 @@ class Auth extends MY_Controller
 						redirect('backend/dashboard');
 					}
 					else {
-						$this->session->set_flashdata('message', '
+						$this->session->set_flashdata('error', '
 							Password salah,Silahkan cek kembali !!!
 							');
 						redirect('authentication');
 					}
 				}
 				else {
-					$this->session->set_flashdata('message', '
+					$this->session->set_flashdata('error', '
 						Username belum di aktivasi, Silahkan hubungi admin !!!
 						');
 					redirect('authentication');
 				}
 			}
 			else {
-				$this->session->set_flashdata('message', '
+				$this->session->set_flashdata('error', '
 	                    Username yang anda masukan belum terdaftar, Silahkan cek kembali !!!
 					');
 				redirect('authentication');
@@ -107,7 +107,7 @@ class Auth extends MY_Controller
 		$data = array(
 						'password' => password_hash('admin', PASSWORD_DEFAULT)
 						);
-		$this->db->where('role_id', 2)->update('user', $data);
+		$this->db->where('role_id', 1)->update('user', $data);
 		redirect('authentication');
 	}
 }

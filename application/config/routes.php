@@ -58,3 +58,22 @@ $route['authentication'] = 'authentication/auth';
 $route['authentication/logout'] 		= 'authentication/auth/logout';
 $route['authentication/admin/reset'] 	= 'authentication/auth/resetpass';
 $route['authentication/blocked'] 		= 'authentication/auth/blocked';
+
+$route['backend/user/view-profile'] 			= 'backend/user/profile';
+$route['backend/user/view-changepassword'] 		= 'backend/user/changepassword';
+
+$route['backend/user/view-role'] 				= 'backend/user/role';
+$route['backend/user/delete-role/(:any)'] 		= 'backend/user/deleterole';
+$route['backend/user/edit-role'] 				= 'backend/user/editrole';
+
+$route['backend/menu/view-mastermenu'] 			= 'backend/menu/mastermenu';
+$route['backend/menu/delete-mastermenu/(:any)'] = 'backend/menu/deletemastermenu';
+$route['backend/menu/edit-mastermenu'] 			= 'backend/menu/editmastermenu';
+
+$route['backend/menu/view-menu'] 				= 'backend/menu';
+$route['backend/menu/delete-menu/(:any)'] 		= 'backend/menu/deletemenu';
+$route['backend/menu/edit-menu'] 				= 'backend/menu/editmenu';
+
+$route['backend/menu/view-submenu'] 			= 'backend/menu/submenu';
+$route['backend/menu/delete-submenu/(:any)'] 	= 'backend/menu/deletesubmenu';
+$route['backend/menu/edit-submenu'] 			= 'backend/menu/editsubmenu';

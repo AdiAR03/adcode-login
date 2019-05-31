@@ -12,6 +12,9 @@
 
 </script>
 
+<div class="flash-data" data-flashdata="<?= $this->session->flashdata('message');?>"></div>
+<div class="flash-data-error" data-flashdata="<?= $this->session->flashdata('error');?>"></div>
+
 <!-- Main content -->
 <section class="content">
   <div class="row">
@@ -34,34 +37,26 @@
             </tr>
             </thead>
             <tbody>
-              <?php
-                if ($role->num_rows() > 0) 
-                {
-                  $no = 1;
-                  foreach ($role->result() as $rl) 
-                  { ?>
-                    <tr>
-                      <td><?php cetak($no++) ;?></td>
-                      <td><?php cetak($rl->role) ;?></td>
-                      <td class="text-center">
-                        <a class="green" href="<?= base_url('backend-editrole/'.encrypt_url($rl->id_role)) ?>">
-                          <button class="btn btn-success btn-xs"><i class="ace-icon fa fa-pencil bigger-130"></i> Edit</button>
-                        </a>&nbsp; 
-                        <a class="red tombolhapus" href="<?= base_url('backend-hapusrole/'.encrypt_url($rl->id_role)) ?>">
-                          <button class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-130"></i> Hapus</button>
-                        </a>
-                      </td>
-                    </tr>
-                  <?php }
-                }
-                else
-                {
-                    echo '<tr><td>Data Tidak Ada</td></tr>';
-                }
-              ;?>   
-            
-            
+              <?php if ($role->num_rows() > 0): ?>
+                <?php $no=1; foreach ($role->result() as $rl): ?>
+                  <tr>
+                    <td><?php cetak($no++) ;?></td>
+                    <td><?php cetak($rl->role) ;?></td>
+                    <td class="text-center">
+                      <a class="green" data-toggle="modal" data-target="#modal-edit<?=$rl->id_role;?>">
+                        <button class="btn btn-success btn-xs"><i class="ace-icon fa fa-pencil bigger-130"></i> Edit</button>
+                      </a>&nbsp; 
+                      <a class="red tombolhapus" href="<?= base_url('backend/user/delete-role/'.encrypt_url($rl->id_role)) ?>">
+                        <button class="btn btn-danger btn-xs"><i class="ace-icon fa fa-trash-o bigger-130"></i> Hapus</button>
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              <?php else: ?>
+                <tr><td colspan="3">Data tidak ada</td></tr>
+              <?php endif ?>
             </tfoot>
+            <thead><tr style="background-color: #3C8DBC"><th colspan="3" class="text-center" style="text-transform: uppercase;">Data Role User</th></tr></thead>
           </table>
         </div>
         <!-- /.box-body -->
@@ -83,12 +78,12 @@
         <h4 class="modal-title text-center" style="font-weight: bold; text-transform: uppercase">Tambah Role User</h4>
       </div>
 
-      <?= form_open('backend/user/tambah-roleuser',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
+      <?= form_open('backend/user/view-role',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
 
       <div class="modal-body">
         <div class="form-groub">
             <label for="">Role <small class="text-danger">*</small></label>
-            <input type="text" name="role" placeholder="Role" class="form-control" value="<?php echo set_value('role') ;?>" required autofocus>
+            <input type="text" name="role" placeholder="Role" class="form-control" value="<?php echo set_value('role') ;?>">
             <?php echo form_error('role', '<small class="text-danger">', '</small>'); ?>
         </div>
       </div>
@@ -102,3 +97,35 @@
     </div>
   </div>
 </div>
+
+<?php $no=0; foreach($role->result() as $rl): $no++; ?>
+<div class="modal fade" id="modal-edit<?=$rl->id_role;?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #3C8DBC">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" style="font-weight: bold; text-transform: uppercase">Edit Role User</h4>
+      </div>
+
+      <?= form_open('backend/user/edit-role',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
+
+      <div class="modal-body">
+         <input type="hidden" readonly value="<?php cetak($rl->id_role);?>" name="id_role" class="form-control" >
+        <div class="form-groub">
+            <label for="">Role <small class="text-danger">*</small></label>
+            <input type="text" name="role" placeholder="Role" class="form-control" value="<?php cetak($rl->role);?>" required autofocus>
+            <?php echo form_error('role', '<small class="text-danger">', '</small>'); ?>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer" style="background-color: #3C8DBC">
+        <?= form_submit('', ' Save ', array('class' => 'btn btn-sm btn-success', 'name' => 'button')); ?>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
+      </div>
+
+      <?= form_close(); ?>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>

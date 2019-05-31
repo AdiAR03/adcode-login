@@ -12,10 +12,20 @@ class m_menumanagement extends CI_model
 		return $this->db->order_by('id_menu', 'ASC')->get('user_menu');
 	}
 
-	// public function getaksesmenu()
-	// {
-	// 	return $this->db->order_by('id_access_menu', 'DESC')->get('user_access_menu');
-	// }
+	public function getmenunull()
+	{
+		return $this->db->where('url_menu', '')->order_by('id_menu', 'ASC')->get('user_menu');
+	}
+
+	public function getaksesmenu()
+	{
+		return $this->db->order_by('id_access_menu', 'DESC')->get('user_access_menu');
+	}
+
+	public function getaksessubmenu()
+	{
+		return $this->db->order_by('id_access_submenu', 'DESC')->get('user_access_submenu');
+	}
 
 	public function getsubmenu()
 	{
