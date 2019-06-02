@@ -8,18 +8,17 @@ class User extends MY_Controller
 		parent::__construct();
 		is_logged_in();
 		$this->load->model('backend/m_usermanagement');
+		$this->load->model('backend/m_menumanagement');
 	}
 
 	public function index()
 	{
-		$title			= 'Menu Management';
-		$sub_title		= 'Menu';
+		$title			= 'User Management';
+		$sub_title		= 'User';
 		$this->header($title, $sub_title);
 
-		$isi['menu']		= $this->m_menumanagement->getmenu();
-		$isi['mastermenu']	= $this->m_menumanagement->getmastermenu();
-		// $isi['aksesmenu']	= $this->m_menumanagement->getaksesmenu();
-		$this->load->view('backend/menu/v_menu', $isi);
+		$isi['user']	= $this->m_usermanagement->getuser();
+		$this->load->view('backend/user/v_user', $isi);
 
 		$this->footer();
 	}
@@ -52,6 +51,46 @@ class User extends MY_Controller
 			redirect('backend/user/view-role');
 		}
 	}
+
+	public function settingaccess()
+	{
+		$role_id 		= decrypt_url($this->uri->segment(4));
+		$title			= 'User Management';
+		$sub_title		= 'Role';
+		$this->header($title, $sub_title);
+
+		$isi['menu']	= $this->m_menumanagement->getmenu();
+		$isi['submenu']	= $this->m_menumanagement->getsubmenu();
+		$isi['role']	= $this->m_usermanagement->getroleid($role_id);
+		$this->load->view('backend/user/v_settingaccess', $isi);
+
+		$this->footer();
+	}
+
+	public function changeaccess()
+    {
+        $menu_id = decrypt_url($this->uri->segment(5));
+        $role_id = decrypt_url($this->uri->segment(4));
+
+        $data = [
+            'role_id' => $role_id,
+            'menu_id' => $menu_id
+        ];
+
+        $result = $this->db->get_where('user_access_menu', $data);
+
+        if ($result->num_rows() < 1) 
+        {
+            $this->db->insert('user_access_menu', $data);
+        } 
+        else 
+        {
+            $this->db->delete('user_access_menu', $data);
+        }
+
+        $this->session->set_flashdata('message', 'Setting akses berhasil diubah');
+        redirect('backend/user/setting-access/'.$this->uri->segment(4));
+    }
 
 	public function deleterole()
 	{

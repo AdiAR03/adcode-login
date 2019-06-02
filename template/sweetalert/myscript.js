@@ -101,3 +101,25 @@ $('.tombolhapus').on('click', function(e)
 	})
 
 })
+
+$('.readtombol').on('click', function(e)
+{
+	e.preventDefault();
+	const href = $(this).attr('href')
+	Swal.fire({
+	  title: 'Ubah Akses',
+	  text: "Yakin Ubah Hak Akses ???",
+	  type: 'warning',
+	  width	: 400,
+	  padding	: '3em',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Yakin!'
+	}).then((result) => {
+	  if (result.value) {
+	    document.location.href = href
+	  }
+	})
+
+})

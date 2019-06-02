@@ -36,7 +36,7 @@
               <th class="text-center" width="10%">Icon</th>
               <th class="text-center">Aktif</th>
               <th class="text-center">Hak Akses</th>
-              <th class="text-center" width="100px">Aksi</th>
+              <th class="text-center" width="138px">Aksi</th>
             </tr>
             </thead>
             <tbody>

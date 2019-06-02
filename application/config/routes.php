@@ -59,12 +59,18 @@ $route['authentication/logout'] 		= 'authentication/auth/logout';
 $route['authentication/admin/reset'] 	= 'authentication/auth/resetpass';
 $route['authentication/blocked'] 		= 'authentication/auth/blocked';
 
+// CONTROLLER USER
 $route['backend/user/view-profile'] 			= 'backend/user/profile';
 $route['backend/user/view-changepassword'] 		= 'backend/user/changepassword';
 
 $route['backend/user/view-role'] 				= 'backend/user/role';
 $route['backend/user/delete-role/(:any)'] 		= 'backend/user/deleterole';
 $route['backend/user/edit-role'] 				= 'backend/user/editrole';
+$route['backend/user/setting-access/(:any)']	= 'backend/user/settingaccess';
+
+$route['backend/user/view-user'] 				= 'backend/user';
+
+// CONTROLLER MENU
 
 $route['backend/menu/view-mastermenu'] 			= 'backend/menu/mastermenu';
 $route['backend/menu/delete-mastermenu/(:any)'] = 'backend/menu/deletemastermenu';
