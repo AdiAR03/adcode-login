@@ -19,6 +19,6 @@ class m_usermanagement extends CI_model
 
 	public function getuser()
 	{
-		return $this->db->order_by('username', 'ASC')->get('user');
+		return $this->db->from('user')->join('user_role', 'user.role_id=user_role.id_role')->order_by('username', 'ASC')->get();
 	}
 }

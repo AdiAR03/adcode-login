@@ -102,13 +102,35 @@ $('.tombolhapus').on('click', function(e)
 
 })
 
-$('.readtombol').on('click', function(e)
+$('.settingmenu').on('click', function(e)
 {
 	e.preventDefault();
 	const href = $(this).attr('href')
 	Swal.fire({
-	  title: 'Ubah Akses',
-	  text: "Yakin Ubah Hak Akses ???",
+	  title: 'Ubah Akses Menu',
+	  text: "Yakin Ubah Hak Akses Menu ???",
+	  type: 'warning',
+	  width	: 400,
+	  padding	: '3em',
+	  showCancelButton: true,
+	  confirmButtonColor: '#3085d6',
+	  cancelButtonColor: '#d33',
+	  confirmButtonText: 'Yakin!'
+	}).then((result) => {
+	  if (result.value) {
+	    document.location.href = href
+	  }
+	})
+
+})
+
+$('.settingsubmenu').on('click', function(e)
+{
+	e.preventDefault();
+	const href = $(this).attr('href')
+	Swal.fire({
+	  title: 'Ubah Akses Submenu',
+	  text: "Yakin Ubah Hak Akses Submenu ???",
 	  type: 'warning',
 	  width	: 400,
 	  padding	: '3em',

@@ -69,6 +69,8 @@ $route['backend/user/edit-role'] 				= 'backend/user/editrole';
 $route['backend/user/setting-access/(:any)']	= 'backend/user/settingaccess';
 
 $route['backend/user/view-user'] 				= 'backend/user';
+$route['backend/user/delete-user/(:any)'] 		= 'backend/user/deleteuser';
+$route['backend/user/edit-user'] 				= 'backend/user/edituser';
 
 // CONTROLLER MENU
 

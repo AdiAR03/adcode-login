@@ -13,14 +13,91 @@ class User extends MY_Controller
 
 	public function index()
 	{
-		$title			= 'User Management';
-		$sub_title		= 'User';
-		$this->header($title, $sub_title);
+		$this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]|matches[username]',
+			[
+				'required'	=> 'Username Tidak Boleh Kosong',
+				'is_unique'	=> 'Username telah digunakan sebelumnya'
+			]);
+		$this->form_validation->set_rules('fullname', 'Username', 'required|trim|matches[fullname]',
+			[
+				'required'	=> 'Fullname Tidak Boleh Kosong',
+			]);
+		$this->form_validation->set_rules('password', 'Password', 'required|min_length[8]|trim|matches[password]',
+			[
+				'required'	=> 'Fullname Tidak Boleh Kosong',
+				'min_length'=> 'Password Minimal 8 Karakter'
+			]);
 
-		$isi['user']	= $this->m_usermanagement->getuser();
-		$this->load->view('backend/user/v_user', $isi);
+		if ($this->form_validation->run() == false) 
+		{
+			$title			= 'User Management';
+			$sub_title		= 'User';
+			$this->header($title, $sub_title);
 
-		$this->footer();
+			$isi['user']	= $this->m_usermanagement->getuser();
+			$isi['role']	= $this->m_usermanagement->getrole();
+			$this->load->view('backend/user/v_user', $isi);
+
+			$this->footer();
+		}
+		else
+		{
+			$data 	= array (
+								'username'	=> $this->input->post('username'),
+								'fullname'	=> $this->input->post('fullname'),
+								'image'		=> 'default.png',
+								'password'	=> password_hash($this->input->post('password'), PASSWORD_DEFAULT) ,
+								'role_id'	=> $this->input->post('role_id'),
+								'is_active'	=> $this->input->post('is_active'),
+								'date_created'	=> time(),
+							);
+
+			$this->db->insert('user', $data);
+			$this->session->set_flashdata('message', 'User Berhasil di tambahkan');
+			redirect('backend/user/view-user');
+		}
+	}
+
+	public function deleteuser()
+	{
+		$id = decrypt_url($this->uri->segment(4));
+		$query = $this->db->where('username', $id)->get('user');
+        $row_query = $query->row_array();
+        $link_file = 'files/img_profile/'.$row_query['image'];
+        if ($row_query['image'] != 'default.png') 
+        {
+        	unlink ($link_file);
+        }
+		$this->db->where('username', $id)->delete('user');
+		$this->session->set_flashdata('message', 'Hapus User Berhasil');
+
+		redirect('backend/user/view-user');
+	}
+
+	public function edituser()
+	{
+		$this->form_validation->set_rules('fullname', 'Fullname', 'required|trim|matches[fullname]',
+			[
+				'required'	=> 'Fullname Tidak Boleh Kosong',
+				'is_unique'	=> 'Fullname telah digunakan'
+			]);
+		if ($this->form_validation->run() == false) 
+		{
+			$this->session->set_flashdata('error', 'Perbaharui User GAGAL...');
+			redirect('backend/user/view-user');
+		}
+		else
+		{
+			$update = array (
+								'fullname'	=> $this->input->post('fullname'),
+								'role_id'	=> $this->input->post('role_id'),
+								'is_active'	=> $this->input->post('is_active'),
+						    );
+			
+			$this->db->where('username', $this->input->post('username'))->update('user', $update);
+			$this->session->set_flashdata('message', 'Perbaharui User Berhasil...');
+			redirect('backend/user/view-user');
+		}
 	}
 
 	public function role()
@@ -92,6 +169,31 @@ class User extends MY_Controller
         redirect('backend/user/setting-access/'.$this->uri->segment(4));
     }
 
+    public function changesubaccess()
+    {
+        $submenu_id = decrypt_url($this->uri->segment(5));
+        $role_id = decrypt_url($this->uri->segment(4));
+
+        $data = [
+            'role_id' 		=> $role_id,
+            'submenu_id' 	=> $submenu_id
+        ];
+
+        $result = $this->db->get_where('user_access_submenu', $data);
+
+        if ($result->num_rows() < 1) 
+        {
+            $this->db->insert('user_access_submenu', $data);
+        } 
+        else 
+        {
+            $this->db->delete('user_access_submenu', $data);
+        }
+
+        $this->session->set_flashdata('message', 'Setting akses Sub Menu berhasil diubah');
+        redirect('backend/user/setting-access/'.$this->uri->segment(4));
+    }
+
 	public function deleterole()
 	{
 		$id = decrypt_url($this->uri->segment(4));
@@ -104,10 +206,9 @@ class User extends MY_Controller
 
 	public function editrole()
 	{
-		$this->form_validation->set_rules('role', 'Nama', 'required|trim|is_unique[user_role.role]|matches[role]',
+		$this->form_validation->set_rules('role', 'Nama', 'required|trim|matches[role]',
 			[
 				'required'	=> 'Role Tidak Boleh Kosong',
-				'is_unique'	=> 'Role telah digunakan'
 			]);
 		if ($this->form_validation->run() == false) 
 		{
@@ -176,8 +277,11 @@ class User extends MY_Controller
             $query = $this->db->where('username', $this->input->post('username'))->get('user');
 	        $row_query = $query->row_array();
 	        $link_file = 'files/img_profile/'.$row_query['image'];
-	        unlink ($link_file);
-
+	        if ($row_query['image'] != 'default.png') 
+	        {
+	        	unlink ($link_file);
+	        }
+	        
 	        $update = array (
 								'fullname' 	=> $this->input->post('fullname'),
 								'image'		=> $foto,

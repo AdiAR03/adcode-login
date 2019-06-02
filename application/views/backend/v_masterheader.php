@@ -58,9 +58,9 @@
     <!-- Logo -->
     <a href="<?= base_url('backend/dashboard');?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b><?= $a['username_aplikasi'];?></span>
+      <span class="logo-mini"><b><?= cetak($a['username_aplikasi']);?></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b><?= $a['fullname_aplikasi'];?></b></span>
+      <span class="logo-lg"><b><?= cetak($a['fullname_aplikasi']);?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -158,7 +158,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?= base_url('files/img_profile/'.$u['image']);?>" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?= $u['fullname'];?></span>
+              <span class="hidden-xs"><?= cetak($u['fullname']);?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -166,8 +166,8 @@
                 <img src="<?= base_url('files/img_profile/'.$u['image']);?>" class="img-circle" alt="User Image">
 
                 <p>
-                  <?= $u['fullname'];?>
-                  <small><?= $u['role'];?> <br> Terdaftar pada tanggal :  <?= tanggal_indo(date("Y-m-d",$u['date_created']));?></small>
+                  <?= cetak($u['fullname']);?>
+                  <small><?= cetak($u['role']);?> <br> Terdaftar pada tanggal :  <?= tanggal_indo(date("Y-m-d",$u['date_created']));?></small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -209,7 +209,7 @@
           <img src="<?= base_url('files/img_profile/'.$u['image']);?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?= $u['fullname'];?></p>
+          <p><?= cetak($u['fullname']);?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

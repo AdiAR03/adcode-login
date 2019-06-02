@@ -23,6 +23,7 @@ class MY_Controller extends CI_Controller
 	{
 		// $isi['pengunjung']		= $this->m_statistik->getPengunjung();
 		// $isi['semuapengunjung']	= $this->m_statistik->getAllPengunjung();
+		
 		$this->load->view('backend/v_masterfooter');
 	}
 }

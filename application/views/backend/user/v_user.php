@@ -34,6 +34,7 @@
               <th width="5%">No</th>
               <th>Fullname</th>
               <th>Username</th>
+              <th class="text-center">Hak Akses</th>
               <th class="text-center" width="70px">Aktif</th>
               <th class="text-center" width="138px">Aksi</th>
             </tr>
@@ -45,6 +46,7 @@
                     <td><?php cetak($no++) ;?></td>
                     <td><?php cetak($u->fullname) ;?></td>
                     <td><?php cetak($u->username) ;?></td>
+                    <td class="text-center"><?php cetak($u->role) ;?></td>
                     <td class="text-center">
                         <?php if ($u->is_active==1): ?>
                           <button class="btn btn-xs btn-success" style="width: 60px"><i class="fa fa-check"></i> Aktif</button>
@@ -53,7 +55,7 @@
                         <?php endif ?>                          
                       </td>
                     <td class="text-center">
-                      <a class="green" data-toggle="modal" data-target="#modal-edit<?=$u->username;?>">
+                      <a class="green" data-toggle="modal" data-target="#modal-edit<?=$u->id_user;?>">
                         <button class="btn btn-success btn-xs"><i class="ace-icon fa fa-pencil bigger-130"></i> Edit</button>
                       </a>&nbsp; 
                       <a class="red tombolhapus" href="<?= base_url('backend/user/delete-user/'.encrypt_url($u->username)) ?>">
@@ -66,7 +68,7 @@
                 <tr><td colspan="6">Data tidak ada</td></tr>
               <?php endif ?>
             </tfoot>
-            <thead><tr style="background-color: #3C8DBC"><th colspan="5" class="text-center" style="text-transform: uppercase;">Data User</th></tr></thead>
+            <thead><tr style="background-color: #3C8DBC"><th colspan="6" class="text-center" style="text-transform: uppercase;">Data User</th></tr></thead>
           </table>
         </div>
         <!-- /.box-body -->
@@ -88,7 +90,7 @@
         <h4 class="modal-title text-center" style="font-weight: bold; text-transform: uppercase">Tambah User</h4>
       </div>
 
-      <?= form_open('backend/user/view-role',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
+      <?= form_open('backend/user/view-user',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
 
       <div class="modal-body">
         <div class="form-groub">
@@ -103,16 +105,31 @@
         </div>
         <div class="form-groub">
           <label for="">Password <small class="text-danger">*</small></label>
-          <input type="text" name="password" placeholder="Password" class="form-control">
+          <input type="text" name="password" placeholder="Password minimal 8 Karakter" class="form-control">
           <?php echo form_error('password', '<small class="text-danger">', '</small>'); ?>
         </div>
-        <div class="form-groub">
-          <label for="">Aktif <small class="text-danger">*</small></label>
-          <select  class="form-control" name="is_active"> 
-            <option value="1"> AKTIF</option>
-            <option value="0"> TIDAK</option>
-          </select>
-          <?php echo form_error('is_active', '<small class="text-danger">', '</small>'); ?>   
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-groub">
+              <label for="">Hak Akses <small class="text-danger">*</small></label>
+              <select  class="form-control" name="role_id"> 
+                <?php foreach ($role->result() as $rl): ?>
+                  <option value="<?php echo $rl->id_role; ?>"> <?php cetak($rl->role); ?></option>
+                <?php endforeach ?>
+              </select>
+              <?php echo form_error('is_active', '<small class="text-danger">', '</small>'); ?>   
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-groub">
+              <label for="">Aktif <small class="text-danger">*</small></label>
+              <select  class="form-control" name="is_active"> 
+                <option value="1"> AKTIF</option>
+                <option value="0"> TIDAK</option>
+              </select>
+              <?php echo form_error('is_active', '<small class="text-danger">', '</small>'); ?>   
+            </div>
+          </div>
         </div>
       </div>
       <br>
@@ -125,3 +142,64 @@
     </div>
   </div>
 </div>
+
+<?php $no = 1; foreach ($user->result() as $u): $no++ ?>
+<div class="modal fade" id="modal-edit<?=$u->id_user;?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #3C8DBC">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-center" style="font-weight: bold; text-transform: uppercase">Edit User</h4>
+      </div>
+
+      <?= form_open('backend/user/edit-user',array('method' => 'POST', 'enctype' => 'multipart/form-data')); ?>
+
+      <div class="modal-body">
+        <input type="hidden" readonly value="<?php cetak($u->username);?>" name="username" class="form-control" >
+        <div class="form-groub">
+            <label for="">Fullname <small class="text-danger">*</small></label>
+            <input type="text" name="fullname" placeholder="Fullname" class="form-control" value="<?php cetak($u->fullname) ;?>" required autofocus>
+            <?php echo form_error('fullname', '<small class="text-danger">', '</small>'); ?>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-groub">
+                <label for="">Hak Akses <small class="text-danger">*</small></label>
+                <select  class="form-control" name="role_id"> 
+                  <?php foreach ($role->result() as $r): ?>
+                    <?php $selected=''; if ($r->id_role==$u->role_id): $selected='selected' ?>
+                      
+                    <?php endif ?>
+                    <option value="<?php echo $r->id_role; ?>" <?= $selected;?>> <?php cetak($r->role) ; ?></option>
+                  <?php endforeach ?>
+                </select>
+                
+            </div>
+            <?php echo form_error('role_id', '<small class="text-danger">', '</small>'); ?>
+          </div>
+          <div class="col-md-6">
+            <div class="form-groub">
+                <label for="">Aktif <small class="text-danger">*</small></label>
+                <select  class="form-control" name="is_active"> 
+                  <option value="1" <?php if ($u->is_active == 1) { echo 'selected';} ?>> AKTIF</option>
+                  <option value="0" <?php if ($u->is_active == 0) { echo 'selected';} ?>> TIDAK</option>
+                </select>
+                <?php echo form_error('is_active', '<small class="text-danger">', '</small>'); ?>
+                   
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="modal-footer" style="background-color: #3C8DBC">
+        <?= form_submit('', ' Save ', array('class' => 'btn btn-sm btn-success', 'name' => 'button')); ?>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
+      </div>
+
+      <?= form_close(); ?>
+    </div>
+  </div>
+</div>
+<?php endforeach ;?>

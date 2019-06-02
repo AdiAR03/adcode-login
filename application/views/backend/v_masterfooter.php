@@ -1,10 +1,12 @@
+  <?php $a = $application->row_array();?>
+
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Helpdesk</b> 1.0
+      <b><?= cetak($a['fullname_aplikasi']);?></b> 1.0
     </div>
-    <strong>Hak Cipta &copy; <?= date('Y');?>  <a href="https://kominfo.limapuluhkotakab.go.id"><img src="<?= base_url('files/images/logokominfo.png');?>" height="25" alt=""></a> Dinas Komunikasi & Informatika Kabupaten Lima Puluh Kota</strong>
+    <strong>Hak Cipta &copy; <?= date('Y');?>  <a href="<?= cetak($a['url_hakcipta']);?>"><img src="<?= base_url('files/images/logokominfo.png');?>" height="25" alt=""></a> <?= cetak($a['hak_cipta']);?></strong>
   </footer>
 
   <!-- Control Sidebar -->

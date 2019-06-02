@@ -1,8 +1,8 @@
 <script src="<?= base_url('template/adminlte/bower_components/');?>jquery/dist/jquery.min.js"></script>
 
-<link href="<?= base_url('template/adminlte//datatables/datatables.min.css') ?>" rel="stylesheet" />
+<link href="<?= base_url('template/adminlte/datatables/datatables.min.css') ?>" rel="stylesheet" />
 
-<script src="<?= base_url('template/adminlte//datatables/datatables.min.js') ?>"></script>
+<script src="<?= base_url('template/adminlte/datatables/datatables.min.js') ?>"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -262,8 +262,7 @@
 
       </div>
       <div class="modal-footer" style="background-color: #3C8DBC">
-        <?= form_submit('', ' Save ', array('class' => 'btn btn-sm btn-success', 'name' => 'button')); ?>
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i>Close</button>
+        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i> Close</button>
       </div>
 
       <?= form_close(); ?>

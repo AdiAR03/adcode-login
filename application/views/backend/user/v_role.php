@@ -1,9 +1,9 @@
 
 <script src="<?= base_url('template/adminlte/bower_components/');?>jquery/dist/jquery.min.js"></script>
 
-<link href="<?= base_url('template/adminlte//datatables/datatables.min.css') ?>" rel="stylesheet" />
+<link href="<?= base_url('template/adminlte/datatables/datatables.min.css') ?>" rel="stylesheet" />
 
-<script src="<?= base_url('template/adminlte//datatables/datatables.min.js') ?>"></script>
+<script src="<?= base_url('template/adminlte/datatables/datatables.min.js') ?>"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
