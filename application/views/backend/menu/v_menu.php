@@ -240,16 +240,9 @@
                 <?php $no=1; foreach ($role->result() as $rl): ?>
                   <tr>
                     <td><?php cetak($rl->role) ;?></td>
-                    <?php foreach ($aksesmenu->result() as $am): ?>
-                      <?php if ($am->role_id==$rl->id_role AND $am->menu_id==$mn->id_menu): ?>
-                        <td>
-                          <label>
-                            <input type="checkbox" checked=""> Ya
-                          </label>
-                        </td>
-                      
-                      <?php endif ?>
-                    <?php endforeach ?>
+                    <td>
+                      <input class="settingmenu" href="<?= base_url('backend/user/changeaccess/'.encrypt_url($rl->id_role).'/'.encrypt_url($mn->id_menu).'/'.'menu') ?>" type="checkbox" <?= check_access($rl->id_role, $mn->id_menu)?> >
+                    </td>
                   </tr>
                 <?php endforeach ?>
               <?php else: ?>

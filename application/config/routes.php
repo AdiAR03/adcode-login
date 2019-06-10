@@ -85,3 +85,7 @@ $route['backend/menu/edit-menu'] 				= 'backend/menu/editmenu';
 $route['backend/menu/view-submenu'] 			= 'backend/menu/submenu';
 $route['backend/menu/delete-submenu/(:any)'] 	= 'backend/menu/deletesubmenu';
 $route['backend/menu/edit-submenu'] 			= 'backend/menu/editsubmenu';
+
+// SETTING
+
+$route['backend/setting/view-aplikasi'] 		= 'backend/setting';

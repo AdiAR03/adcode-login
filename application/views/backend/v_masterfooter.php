@@ -4,7 +4,7 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b><?= cetak($a['fullname_aplikasi']);?></b> 1.0
+      <b><?= cetak($a['fullname_aplikasi']);?></b> <?= cetak($a['versi_aplikasi']);?>
     </div>
     <strong>Hak Cipta &copy; <?= date('Y');?>  <a href="<?= cetak($a['url_hakcipta']);?>"><img src="<?= base_url('files/images/logokominfo.png');?>" height="25" alt=""></a> <?= cetak($a['hak_cipta']);?></strong>
   </footer>

@@ -166,6 +166,10 @@ class User extends MY_Controller
         }
 
         $this->session->set_flashdata('message', 'Setting akses berhasil diubah');
+        if ($this->uri->segment(6) == 'menu') 
+        {
+        	redirect('backend/menu/view-menu');
+        }
         redirect('backend/user/setting-access/'.$this->uri->segment(4));
     }
 
@@ -191,6 +195,10 @@ class User extends MY_Controller
         }
 
         $this->session->set_flashdata('message', 'Setting akses Sub Menu berhasil diubah');
+        if ($this->uri->segment(6) == 'submenu') 
+        {
+        	redirect('backend/menu/view-submenu');
+        }
         redirect('backend/user/setting-access/'.$this->uri->segment(4));
     }
 

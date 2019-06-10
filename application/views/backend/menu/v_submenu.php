@@ -229,16 +229,10 @@
                 <?php $no=1; foreach ($role->result() as $rl): ?>
                   <tr>
                     <td><?php cetak($rl->role) ;?></td>
-                    <?php foreach ($aksessubmenu->result() as $asm): ?>
-                      <?php if ($asm->role_id==$rl->id_role AND $asm->submenu_id==$subm->id_submenu): ?>
-                        <td>
-                          <label>
-                            <input type="checkbox" checked=""> Ya
-                          </label>
-                        </td>
-                      
-                      <?php endif ?>
-                    <?php endforeach ?>
+                    <td>
+                      <input class="settingsubmenu" href="<?= base_url('backend/user/changesubaccess/'.encrypt_url($rl->id_role).'/'.encrypt_url($subm->id_submenu).'/'.'submenu') ?>" type="checkbox" <?= check_subaccess($rl->id_role, $subm->id_submenu)?>>
+
+                    </td>
                   </tr>
                 <?php endforeach ?>
               <?php else: ?>

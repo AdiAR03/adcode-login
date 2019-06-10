@@ -25,17 +25,35 @@ function is_logged_in()
             $querySubMenu = $ci->db->from('user_sub_menu')->join('user_menu', 'user_sub_menu.menu_id=user_menu.id_menu')->join('user_master_menu', 'user_menu.master_menu_id=user_master_menu.id_master_menu')->where('user_master_menu.master_menu', $menu)->get()->row_array();
             $submenu_id = $querySubMenu['id_submenu'];
 
-            $userAccessSub = $ci->db->get_where('user_access_menu', [
+            $userAccessSub = $ci->db->get_where('user_access_submenu', [
                 'role_id' => $role_id,
-                'menu_id' => $menu_id
+                'submenu_id' => $submenu_id
+
+                
             ]);
-
-
+            die($submenu_id);
             if ($userAccessSub->num_rows() < 1) 
             {
                 redirect('authentication/blocked');
             }
         }
+        // else
+        // {
+        //     $querySubMenu = $ci->db->from('user_sub_menu')->join('user_menu', 'user_sub_menu.menu_id=user_menu.id_menu')->join('user_master_menu', 'user_menu.master_menu_id=user_master_menu.id_master_menu')->where('user_master_menu.master_menu', $menu)->get()->row_array();
+        //     $submenu_id = $querySubMenu['id_submenu'];
+
+        //     $userAccessSub = $ci->db->get_where('user_access_submenu', [
+        //         'role_id' => $role_id,
+        //         'submenu_id' => $submenu_id
+        //     ]);
+
+
+        //     if ($userAccessSub->num_rows() < 1) 
+        //     {
+        //         die($submenu_id. $role_id);
+        //         redirect('authentication/blocked');
+        //     }
+        // }
     }
 }
 
