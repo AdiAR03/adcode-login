@@ -35,7 +35,7 @@ class Auth extends MY_Controller
 		$captcha = $this->input->post('security_code');
 		if($captcha != $this->session->userdata('myCap'))
         {
-        	$this->session->set_flashdata('message', 
+        	$this->session->set_flashdata('error', 
 											'Kode Keamanan Salah!');
             redirect('authentication');
         }

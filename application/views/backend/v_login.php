@@ -131,7 +131,7 @@
   function reload()
   {
   img = document.getElementById("captcha");
-  img.src="<?= base_url('captcha'); ?>" + Math.random();
+  img.src="<?php echo base_url('captcha/getCaptcha?rand_number='); ?>" + Math.random();
   }
 </script>
 
